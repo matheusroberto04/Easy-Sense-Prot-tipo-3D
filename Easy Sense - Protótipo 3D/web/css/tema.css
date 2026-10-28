@@ -1,0 +1,21 @@
+/* Paleta compartilhada pelas duas telas. Altere as cores aqui. */
+:root {
+  --bg: #f7f6f4;
+  --surface: #ffffff;
+  --ink: #1f1f1f;
+  --muted: #646464;
+  --line: #e4e2df;
+  --header: #171717;
+  --accent: #c2410c;
+  --accent-hover: #9a3412;
+  --brand: #ff8a2a;
+  --accent-soft: #fff0e6;
+  --accent-ink: #9a3412;
+  --focus: #c2410c;
+}
+
+/* O laranja mais escuro permite ler os textos brancos dos botões. */
+.primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}

@@ -1,0 +1,13 @@
+{
+  "review_date": "2026-10-23",
+  "name": "three",
+  "version": "0.186.1",
+  "resolved": "https://registry.npmjs.org/three/-/three-0.186.1.tgz",
+  "integrity": "sha512-blFeqb49wRCSGUGj7gtpfnSGHy2lwDk94RhUmS1c/hTby70kvChbWpkJ4Pm1390LqzzvTmzgXKHPEafJwCb8jA==",
+  "license": "MIT",
+  "audit": {
+    "tool": "npm audit",
+    "known_vulnerabilities_reported": 0,
+    "limitation": "Consulta de avisos conhecidos; não é garantia de ausência de vulnerabilidades."
+  }
+}

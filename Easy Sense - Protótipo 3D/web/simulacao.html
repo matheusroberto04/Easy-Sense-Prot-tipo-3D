@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Easy Sense · Simulação 3D</title>
+    <link rel="stylesheet" href="/css/tema.css" />
+    <link rel="stylesheet" href="/css/simulacao.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        Easy
+        <span>Sense</span>
+      </div>
+      <nav>
+        <span class="badge">SIMULAÇÃO · SEM CÂMERAS REAIS</span>
+        
+      </nav>
+    </header>
+    <main>
+      <div class="intro">
+        <div>
+          <h1>Simulação 3D. Identificação visual.</h1>
+          <p class="muted">
+            Acompanhe as câmeras virtuais identificando o tipo do veículo e
+            confirmando os eixos.
+          </p>
+        </div>
+        <span class="pill" id="status">Carregando</span>
+      </div>
+      <!-- Controles da demonstração; opções de veículos vêm de config.py. -->
+      <div class="controls">
+        <label for="vehicle" class="muted">Cenário de teste:</label>
+        <select id="vehicle" disabled>
+          <option value="">Carregando veículos…</option>
+        </select>
+        <button id="run" class="primary" disabled>Simular passagem</button>
+        <button id="cancel" disabled>Cancelar passagem</button>
+      </div>
+      <div id="message" role="status" aria-live="polite">
+        Conectando ao programa local…
+      </div>
+      <div class="note">
+        <b>Reconhecimento em ambiente simulado:</b>
+        o programa analisa rodas e janelas nos pixels das duas vistas 3D. O nome
+        do cenário não é usado como resposta pelo classificador. As regras
+        funcionam com estes modelos e cores controladas; não analisam vídeos
+        reais nem definem tarifas. A contagem de eixos continua usando eventos
+        da simulação.
+      </div>
+      <section class="card recognition-summary" aria-live="polite">
+        <div>
+          <span class="muted">Tipo identificado nas imagens</span>
+          <h2 id="identifiedType">Aguardando imagem</h2>
+        </div>
+        <p class="muted" id="recognitionStatus">
+          Análise automática durante a passagem.
+        </p>
+      </section>
+      <!-- Cena 3D e duas vistas geradas por js/cena3d.js. -->
+      <section class="card">
+        <div class="title">
+          <h2>Praça de Easy em 3D</h2>
+          <div class="scene-tools">
+            <span class="muted">Arraste para girar</span>
+            <button id="resetView">Restaurar visão</button>
+          </div>
+        </div>
+        <canvas
+          class="world"
+          id="world"
+          width="1100"
+          height="410"
+          aria-label="Cena 3D interativa de uma praça de Easy com cabine, pista e duas câmeras"
+        ></canvas>
+      </section>
+      <p class="muted" id="frameStatus">Câmeras virtuais · quadros ao vivo</p>
+      <div class="views">
+        <section class="card camera">
+          <div class="title">
+            <h2>Câmera A · lado esquerdo</h2>
+            <span class="camcount" id="countA">0 eventos</span>
+          </div>
+          <canvas
+            id="camA"
+            width="550"
+            height="190"
+            aria-label="Vista lateral simulada da câmera A"
+          ></canvas>
+          <p class="camera-result" id="recognitionA">Análise visual pendente</p>
+        </section>
+        <section class="card camera">
+          <div class="title">
+            <h2>Câmera B · lado direito</h2>
+            <span class="camcount" id="countB">0 eventos</span>
+          </div>
+          <canvas
+            id="camB"
+            width="550"
+            height="190"
+            aria-label="Vista lateral simulada da câmera B"
+          ></canvas>
+          <p class="camera-result" id="recognitionB">Análise visual pendente</p>
+        </section>
+      </div>
+      <!-- Contagem confirmada pelo Python e histórico salvo no SQLite. -->
+      <div class="bottom">
+        <section class="card score">
+          <h2>Eixos confirmados</h2>
+          <div class="number" id="confirmed" aria-live="polite">0</div>
+          <p class="muted">Um eixo confirmado = observação dos dois lados.</p>
+          <div class="evidence" id="evidence"></div>
+          <div class="log" id="log">Aguardando veículo.</div>
+        </section>
+        <section class="card">
+          <div class="title">
+            <div>
+              <h2>Histórico salvo</h2>
+              <span class="muted" id="total">0 passagens</span>
+            </div>
+            <a class="button" href="/historico.csv" download>Exportar CSV</a>
+          </div>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Tipo identificado</th>
+                  <th>Eixos</th>
+                  <th>Horário</th>
+                </tr>
+              </thead>
+              <tbody id="history"></tbody>
+            </table>
+            <p id="empty" class="muted">
+              As passagens aparecerão aqui automaticamente.
+            </p>
+          </div>
+        </section>
+      </div>
+      <footer>
+        Protótipo acadêmico · Tema 1: Monitoramento Físico Inteligente ·
+        Resultados demonstrativos armazenados no computador.
+      </footer>
+    </main>
+    <script type="module" src="/js/simulacao.js"></script>
+  </body>
+</html>
